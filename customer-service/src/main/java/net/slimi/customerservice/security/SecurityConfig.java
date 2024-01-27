@@ -26,7 +26,7 @@ public class SecurityConfig {
     }
 
 
-   /* si je veux utiliser back security channel
+   /*
    @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
@@ -50,6 +50,8 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 //.authorizeHttpRequests(ar->ar.requestMatchers("/swagger-ui/**").permitAll())
                 //.authorizeHttpRequests(ar->ar.requestMatchers("/customers/**").permitAll())
+                //je peux soit utiliser ce line desous soit ajouter annotation @EnableMethodSecurity et ajouter role  dans controller @PreAuthorize("hasAuthority('USER')")
+                //.authorizeHttpRequests(ar->ar.requestMatchers("/customers/**").hasAuthority("USER"))
                 .authorizeHttpRequests(ar->ar.anyRequest().authenticated())
                 .oauth2ResourceServer(ors->ors.jwt(jwt->jwt.jwtAuthenticationConverter(jwtAuthConverter)))
                 .headers(h->h.frameOptions(fo->fo.disable()))
