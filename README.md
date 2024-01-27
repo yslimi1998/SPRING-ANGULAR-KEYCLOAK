@@ -19,7 +19,7 @@ first i have to run this in http client : POST http://localhost:8080/realms/eban
 Accept: application/json
 Content-Type: application/x-www-form-urlencoded
 
-grant_type=password&client_id=ebank-client&username=youness1998&password=123456
+grant_type=password&client_id=slimi-client&username=youness1998&password=123456
 
 then i take the access_token to send it in Bearer Token in postman to tesp my apis acording to user roles
 
@@ -40,3 +40,17 @@ POUR UTILISER AVEC ANGULAR :
 
 
 9- il est pratique d'utiliser securite front avec keycloak et back avec     @PreAuthorize("hasAuthority('ADMIN')") les deux sont tres pratique 
+
+10- pour determiner le role de chaqe utilisateur quand je l'ai cree sans l'asigner un role : Realm setting ->User registration ->Assign role et je choisit le role
+
+11- Docker:
+        a- je vais lancer customer-service manual(pas avec docker compose)
+        b- pour le front si je veux l'utiliser via docker compose il faut changer onLoad: 'check-sso', ---> onLoad: 'login-required', in appmodule et puis generer DIST apres je peux lancer docker copose up -d --build
+        PS: n'oublier pas d'ajouter path dans Web origins  du client de keycloak
+        c- docker compose up -d --build
+        d- pour se connecter a keycloak: localhost:8080 pour user et password il fat les crees comme precedent ....
+        e- pour se connecter a base de donnee de app: localhost:9999 (user: younes, 123456) ou (root, admin)
+        f- pour se connecter a base de donnee postegres: localhost:5050 (youness@slimi.net, 123456) et puis cree connection (db: keycloak, user: keycloak, password: k1234,port: 5432 )
+j'ai utiliser les volumes pour stocker les donnees et au ca ou j'ai suprimer ou stoper le container ne pas perdu du data.
+
+le seul que je dois le lancer par button c'est customer-service
